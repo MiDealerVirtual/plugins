@@ -1,0 +1,11 @@
+/**
+  * MiDealerVirtual.com © 2010 - 2011
+  */
+
+List of PyroCMS Plugins used:
+ - inventory_fetcher.php
+ - mdv_forms.php
+ - minifier.php
+ - special_tags.php
+ - url_decode.php
+ - widget_fetcher.php
