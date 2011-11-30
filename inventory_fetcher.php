@@ -41,6 +41,7 @@ class Plugin_inventory_fetcher extends Plugin
 		// Fetch Attributes
 		$limit		= $this->attribute( 'limit', 10 );
 		$only_html	= $this->attribute( 'only_html', false );
+		$show_data	= $this->attribute( 'show_data', false );
 		
 		// Return Used vehicles
 		$used_vehicles = $this->mdv_db
@@ -82,9 +83,31 @@ class Plugin_inventory_fetcher extends Plugin
 			$html_to_return = "";
 			foreach( $extended_used_vehicles as $v )
 			{
-				$html_to_return .=
-			'<div class="thumb">
-				<a href="'.$v['VEH_URL'].'" title="'.$v['SEO_VEH_LABEL'].'"><img alt="'.$v['SEO_VEH_LABEL'].'" src="'.$v['IMAGE_W_PATH'].'" title="'.$v['SEO_VEH_LABEL'].'" /></a></div>';
+				// Href & Img
+				$a_href = '<a href="'.$v['VEH_URL'].'" title="'.$v['SEO_VEH_LABEL'].'">';
+				$img = '<img alt="'.$v['SEO_VEH_LABEL'].'" src="'.$v['IMAGE_W_PATH'].'" title="'.$v['SEO_VEH_LABEL'].'" />';
+				
+				// Determine if data (year mke and model) is showing
+				if( $show_data )
+				{
+					$html_to_return .=
+'<div class="box_result clearfix">
+	<div class="thumbs">
+		'.$a_href.$img.'</a>
+	</div>
+	<ul>
+		<li class="title">'.$a_href.$v['MAKE'].' '.$v['MODEL'].'</a></li>
+		<li class="year">'.$v['YEAR'].'</li>
+	</ul>
+</div>';
+				}
+				else
+				{
+					$html_to_return .=
+'<div class="thumb">
+	'.$a_href.$img.'</a>
+</div>';
+				}
 			}
 			
 			// add see all button
