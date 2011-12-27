@@ -42,6 +42,7 @@ class Plugin_inventory_fetcher extends Plugin
 		$limit		= $this->attribute( 'limit', 10 );
 		$only_html	= $this->attribute( 'only_html', false );
 		$show_data	= $this->attribute( 'show_data', false );
+		$skip_btn	= $this->attribute( 'skip_btn', false );
 		
 		// Return Used vehicles
 		$used_vehicles = $this->mdv_db
@@ -111,8 +112,11 @@ class Plugin_inventory_fetcher extends Plugin
 			}
 			
 			// add see all button
-			$html_to_return .= 
-			'<div class="btn_2"><a href="inventario?conditions=used" title="Veh&iacute;culos Usados en '.parseStr( '{pyro:variables:dealer_inc_name}' ).'"></a></div>';
+			if( !$skip_btn )
+			{
+				$html_to_return .= 
+				'<div class="btn_2"><a href="inventario?conditions=used" title="Veh&iacute;culos Usados en '.parseStr( '{pyro:variables:dealer_inc_name}' ).'"></a></div>';
+			}
 			
 			// return html
 			return $html_to_return;
