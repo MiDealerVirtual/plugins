@@ -29,6 +29,9 @@ class Plugin_inventory_fetcher extends Plugin
 		
 		// Fetch certain CMS vars 
 		$this->mod_cms_vars = extractVars( varsToExtract() );
+		
+		// Extend CMS vars
+		$this->mod_cms_vars['skip_stock_vehicles'] = parseStr( '{pyro:variables:skip_stock_vehicles}' );
 	}
 	
 	/**
@@ -58,6 +61,12 @@ class Plugin_inventory_fetcher extends Plugin
 		$extended_used_vehicles = array();
 		foreach( $used_vehicles as $v )
 		{
+			// skip, if stock, if required
+			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' && $v['IOL_IMAGE'] == 1 )
+			{
+				continue;
+			}
+				
 			// create vehicle link
 			$v['VEH_URL'] = $this->mod_cms_vars['base_url']."inventario/".createVehiclePermaLink( $this->mod_cms_vars,
 											  array( 'ci' => $v['CLIENT_ID'],
@@ -171,6 +180,12 @@ class Plugin_inventory_fetcher extends Plugin
 		$extended_similar_vehicles = array();
 		foreach( $similar_vehicles as $v )
 		{
+			// skip, if stock, if required
+			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' && $v['IOL_IMAGE'] == 1 )
+			{
+				continue;
+			}
+			
 			// create vehicle link
 			$v['VEH_URL'] = $this->mod_cms_vars['base_url']."inventario/".createVehiclePermaLink( $this->mod_cms_vars,
 											  array( 'ci' => $v['CLIENT_ID'],
