@@ -314,6 +314,46 @@ class Plugin_special_tags extends Plugin
 		// Return opening form
 		return $output;
 	}
+	
+	public function textarea()
+	{
+		// Save Attributes
+		$id = $this->attribute( 'id', false );
+		$name = $this->attribute( 'name', false );
+		$class = $this->attribute( 'class', false );
+		$disabled = $this->attribute( 'disabled', false );
+		$open = $this->attribute( 'open', false );
+		$close = $this->attribute( 'close', false );
+		
+		// Determine if opening form
+		if( $open )
+		{
+			// Create output
+			$output = "<textarea";
+			
+			// Display optional parameters
+			if( $id != false )
+				$output .= ' id="'.$id.'"';
+			if( $name != false )
+				$output .= ' name="'.$name.'"';
+			if( $class != false )
+				$output .= ' class="'.$class.'"';
+			if( $disabled != false )
+				$output .= ' disabled="disabled"';
+			
+			// Close ouptut
+			$output .= ">";
+			
+			// Return opening form
+			return $output;
+		}
+		else if( $close )
+		{
+			return "</textarea>";	
+		}
+		else
+			return false;
+	}
 }
 
 /* End of file session.php */
