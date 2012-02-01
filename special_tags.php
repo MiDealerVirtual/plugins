@@ -171,6 +171,149 @@ class Plugin_special_tags extends Plugin
 		// Default return
 		return false;
 	}
+	
+	public function form()
+	{
+		// Save Attributes
+		$id = $this->attribute( 'id', false );
+		$name = $this->attribute( 'name', false );
+		$class = $this->attribute( 'class', false );
+		$method = $this->attribute( 'method', "post" );
+		$action = $this->attribute( 'action', false );
+		$open = $this->attribute( 'open', false );
+		$close = $this->attribute( 'close', false );
+		
+		// Determine if opening form
+		if( $open )
+		{
+			// Create output
+			$output = "<form";
+			
+			// Display optional parameters
+			if( $id != false )
+				$output .= ' id="'.$id.'"';
+			if( $name != false )
+				$output .= ' name="'.$name.'"';
+			if( $class != false )
+				$output .= ' class="'.$class.'"';
+			if( $action != false )
+				$output .= ' action="'.$action.'"';
+			$output .= ' method="'.$method.'"';
+			
+			// Close ouptut
+			$output .= ">";
+			
+			// Return opening form
+			return $output;
+		}
+		else if( $close )
+		{
+			return "</form>";	
+		}
+		else
+			return false;
+	}
+	
+	public function input()
+	{
+		// Save Attributes
+		$type = $this->attribute( 'type', "text" );
+		$id = $this->attribute( 'id', false );
+		$name = $this->attribute( 'name', false );
+		$class = $this->attribute( 'class', false );
+		$value = $this->attribute( 'value', false );
+		$disabled = $this->attribute( 'disabled', false );
+		
+		// Create output
+		$output = "<input type=\"'".$type."\"";
+		
+		// Display optional parameters
+		if( $id != false )
+			$output .= ' id="'.$id.'"';
+		if( $name != false )
+			$output .= ' name="'.$name.'"';
+		if( $class != false )
+			$output .= ' class="'.$class.'"';
+		if( $value != false )
+			$output .= ' value="'.$value.'"';
+		if( $disabled != false )
+			$output .= ' disabled="disabled"';
+		
+		// Close output
+		$output = " />";
+		
+		// Default return
+		return $output;
+	}
+	
+	public function select()
+	{
+		// Save Attributes
+		$id = $this->attribute( 'id', false );
+		$name = $this->attribute( 'name', false );
+		$class = $this->attribute( 'class', false );
+		$disabled = $this->attribute( 'disabled', false );
+		$size = $this->attribute( 'size', false );
+		$open = $this->attribute( 'open', false );
+		$close = $this->attribute( 'close', false );
+		
+		// Determine if opening form
+		if( $open )
+		{
+			// Create output
+			$output = "<select";
+			
+			// Display optional parameters
+			if( $id != false )
+				$output .= ' id="'.$id.'"';
+			if( $name != false )
+				$output .= ' name="'.$name.'"';
+			if( $class != false )
+				$output .= ' class="'.$class.'"';
+			if( $disabled != false )
+				$output .= ' disabled="disabled"';
+			if( $size != false )
+				$output .= ' size="'.$size.'"';
+			
+			// Close ouptut
+			$output .= ">";
+			
+			// Return opening form
+			return $output;
+		}
+		else if( $close )
+		{
+			return "</select>";	
+		}
+		else
+			return false;
+	}
+	
+	public function select_option()
+	{
+		// Save Attributes
+		$label = $this->attribute( 'label', false );
+		$value = $this->attribute( 'value', false );
+		$disabled = $this->attribute( 'disabled', false );
+		$selected = $this->attribute( 'selected', false );
+		
+		// Create output
+		$output = "<option";
+		
+		// Display optional parameters
+		if( $value != false )
+			$output .= ' value="'.$value.'"';
+		if( $disabled != false )
+			$output .= ' disabled="disabled"';
+		if( $selected != false )
+			$output .= ' selected="selected"';
+		
+		// Close output
+		$output .= ">".$label."</option>";
+		
+		// Return opening form
+		return $output;
+	}
 }
 
 /* End of file session.php */
