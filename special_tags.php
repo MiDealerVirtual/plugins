@@ -240,7 +240,7 @@ class Plugin_special_tags extends Plugin
 			$output .= ' disabled="disabled"';
 		
 		// Close output
-		$output = " />";
+		$output .= " />";
 		
 		// Default return
 		return $output;
@@ -322,6 +322,8 @@ class Plugin_special_tags extends Plugin
 		$name = $this->attribute( 'name', false );
 		$class = $this->attribute( 'class', false );
 		$disabled = $this->attribute( 'disabled', false );
+		$rows = $this->attribute( 'rows', false );
+		$cols = $this->attribute( 'cols', false );
 		$open = $this->attribute( 'open', false );
 		$close = $this->attribute( 'close', false );
 		
@@ -340,6 +342,10 @@ class Plugin_special_tags extends Plugin
 				$output .= ' class="'.$class.'"';
 			if( $disabled != false )
 				$output .= ' disabled="disabled"';
+			if( $rows != false )
+				$output .= ' rows="'.$rows.'"';
+			if( $cols != false )
+				$output .= ' cols="'.$cols.'"';
 			
 			// Close ouptut
 			$output .= ">";
