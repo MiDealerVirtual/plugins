@@ -225,7 +225,7 @@ class Plugin_special_tags extends Plugin
 		$disabled = $this->attribute( 'disabled', false );
 		
 		// Create output
-		$output = "<input type=\"'".$type."\"";
+		$output = "<input type=\"".$type."\"";
 		
 		// Display optional parameters
 		if( $id != false )
