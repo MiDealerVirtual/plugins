@@ -47,7 +47,22 @@ class Plugin_inventory_fetcher extends Plugin
 		$show_data	= $this->attribute( 'show_data', false );
 		$skip_btn	= $this->attribute( 'skip_btn', false );
 		
+		// Prepare query
+		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$this->mod_cms_vars['mdv_ids'].") AND `CONDITION` IN ('used', 'certified')";
+		
+			// Remove stock vehicles (if enabled)
+			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
+				$sql .= " AND `IOL_IMAGE` == '0'";
+		
+		// Finish query
+		$sql .= " ORDER BY `VEH_ID` RANDOM LIMIT ".$limit;
+		
 		// Return Used vehicles
+		$results = $this->mdv_db->query( $sql );
+		$used_vehicles = $results->result_array();
+		
+		/* NO LONGER USED, DELETE ON NEXT PUSH
+		// Return Used vehicles (all vehicles)
 		$used_vehicles = $this->mdv_db
 			->select( '*' )
 			->where( '`CLIENT_ID` IN ('.$this->mod_cms_vars['mdv_ids'].')' )
@@ -55,18 +70,12 @@ class Plugin_inventory_fetcher extends Plugin
 			->order_by( '`VEH_ID`', 'random' )
 			->limit( $limit )
 			->get( 'vehicles_available_to_viewer_final' )
-			->result_array();
+			->result_array();*/
 		
 		// Loop and Add extra field
 		$extended_used_vehicles = array();
 		foreach( $used_vehicles as $v )
-		{
-			// skip, if stock, if required
-			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' && $v['IOL_IMAGE'] == 1 )
-			{
-				continue;
-			}
-				
+		{		
 			// create vehicle link
 			$v['VEH_URL'] = $this->mod_cms_vars['base_url']."inventario/".createVehiclePermaLink( $this->mod_cms_vars,
 											  array( 'ci' => $v['CLIENT_ID'],
@@ -148,7 +157,21 @@ class Plugin_inventory_fetcher extends Plugin
 		$v_model	= $this->attribute( 'model' );
 		$v_type		= $this->attribute( 'type' );
 		
+		// Prepare query
+		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$this->mod_cms_vars['mdv_ids'].") AND `VEH_ID` != ".$veh_id." AND `MAKE` LIKE '".$v_make."' AND `MODEL` LIKE '".$v_model."'";
+		
+			// Remove stock vehicles (if enabled)
+			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
+				$sql .= " AND `IOL_IMAGE` == '0'";
+		
+		// Finish query
+		$sql .= " ORDER BY `VEH_ID` RANDOM LIMIT ".$limit;
+		
 		// Return Used vehicles
+		$results = $this->mdv_db->query( $sql );
+		$similar_vehicles = $results->result_array();
+		
+		/* NOT USED NO MORE, DELETE ON NEXT PUSH
 		$similar_vehicles = $this->mdv_db
 			->select( '*' )
 			->where( '`CLIENT_ID` IN ('.$this->mod_cms_vars['mdv_ids'].')' )
@@ -158,12 +181,27 @@ class Plugin_inventory_fetcher extends Plugin
 			->order_by( '`VEH_ID`', 'random' )
 			->limit( $limit )
 			->get( 'vehicles_available_to_viewer_final' )
-			->result_array();
+			->result_array();*/
 			
 		// Check to see if limit has been met
 		$curr_count = count( $similar_vehicles );
 		if( $curr_count < $limit )
 		{
+			// Prepare query
+			$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$this->mod_cms_vars['mdv_ids'].") AND `VEH_ID` != ".$veh_id." AND `TYPE` LIKE '".$v_type."'";
+			
+				// Remove stock vehicles (if enabled)
+				if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
+					$sql .= " AND `IOL_IMAGE` == '0'";
+			
+			// Finish query
+			$sql .= " ORDER BY `VEH_ID` RANDOM LIMIT ".( $limit - $curr_count );
+			
+			// Return Used vehicles
+			$results = $this->mdv_db->query( $sql );
+			$similar_vehicles = array_merge( $similar_vehicles, $results->result_array() );
+
+			/* NOT USED NO MORE, DELETE ON NEXT PUSH
 			$similar_vehicles = array_merge( $similar_vehicles,
 				$this->mdv_db
 				->select( '*' )
@@ -173,19 +211,13 @@ class Plugin_inventory_fetcher extends Plugin
 				->order_by( '`VEH_ID`', 'random' )
 				->limit( ( $limit - $curr_count ) )
 				->get( 'vehicles_available_to_viewer_final' )
-				->result_array() );
+				->result_array() );*/
 		}
 		
 		// Loop and Add extra field
 		$extended_similar_vehicles = array();
 		foreach( $similar_vehicles as $v )
 		{
-			// skip, if stock, if required
-			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' && $v['IOL_IMAGE'] == 1 )
-			{
-				continue;
-			}
-			
 			// create vehicle link
 			$v['VEH_URL'] = $this->mod_cms_vars['base_url']."inventario/".createVehiclePermaLink( $this->mod_cms_vars,
 											  array( 'ci' => $v['CLIENT_ID'],
