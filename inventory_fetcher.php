@@ -52,7 +52,7 @@ class Plugin_inventory_fetcher extends Plugin
 		
 			// Remove stock vehicles (if enabled)
 			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
-				$sql .= " AND `IOL_IMAGE` == '0'";
+				$sql .= " AND `IOL_IMAGE` = '0'";
 		
 		// Finish query
 		$sql .= " ORDER BY `VEH_ID` RANDOM LIMIT ".$limit;
@@ -162,7 +162,7 @@ class Plugin_inventory_fetcher extends Plugin
 		
 			// Remove stock vehicles (if enabled)
 			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
-				$sql .= " AND `IOL_IMAGE` == '0'";
+				$sql .= " AND `IOL_IMAGE` = '0'";
 		
 		// Finish query
 		$sql .= " ORDER BY `VEH_ID` RANDOM LIMIT ".$limit;
@@ -192,7 +192,7 @@ class Plugin_inventory_fetcher extends Plugin
 			
 				// Remove stock vehicles (if enabled)
 				if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
-					$sql .= " AND `IOL_IMAGE` == '0'";
+					$sql .= " AND `IOL_IMAGE` = '0'";
 			
 			// Finish query
 			$sql .= " ORDER BY `VEH_ID` RANDOM LIMIT ".( $limit - $curr_count );
