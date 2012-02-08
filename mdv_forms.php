@@ -640,9 +640,17 @@ class Plugin_mdv_forms extends Plugin
 		// Save Attributes
 		$form_suffix = $this->attribute( 'form_suffix', '_frm_1' );
 		$form_dealer_options = $this->_parsePyroVar( 'mdv_form_options', true );
+		$required_opt_fields = $this->attribute( 'req_opt_fields', false );
+		
+		// Parse params (if neccessary)
+		if( $required_opt_fields != false )
+			$required_opt_fields = explode( ",", $required_opt_fields );
 		
 		// Custom Inernal Vars
 		$opt_count = count( $form_dealer_options );
+		
+		// Set flags for possible optional requirements
+		$is_email_req = ( is_array( $required_opt_fields ) && in_array( 'email', $required_opt_fields ) ) ? true : false;
 		
 		// Form HTML Output
 		$output =
@@ -694,8 +702,8 @@ class Plugin_mdv_forms extends Plugin
 					<input type="text" class="jq_telephone" id="lms_telephone'.$form_suffix.'" name="telephone" value="" />
 				</td>
 				<td>
-					<label>Correo Electr&oacute;nico:&nbsp;</label>
-					<input type="text" class="" id="lms_email'.$form_suffix.'" name="email" value="" />
+					<label>Correo Electr&oacute;nico:&nbsp;'.( ( $is_email_req ) ? ' <span>*</span>' : '' ).'</label>
+					<input type="text" class="'.( ( $is_email_req ) ? 'jq_opt_req' : '' ).'" id="lms_email'.$form_suffix.'" name="email" value="" />
 				</td>
 			</tr>
 			<tr>
