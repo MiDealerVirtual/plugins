@@ -55,7 +55,7 @@ class Plugin_inventory_fetcher extends Plugin
 				$sql .= " AND `IOL_IMAGE` = '0'";
 		
 		// Finish query
-		$sql .= " ORDER BY `VEH_ID` RAND() LIMIT ".$limit;
+		$sql .= " ORDER BY RAND() LIMIT ".$limit;
 		
 		// Return Used vehicles
 		$results = $this->mdv_db->query( $sql );
@@ -165,7 +165,7 @@ class Plugin_inventory_fetcher extends Plugin
 				$sql .= " AND `IOL_IMAGE` = '0'";
 		
 		// Finish query
-		$sql .= " ORDER BY `VEH_ID` RAND() LIMIT ".$limit;
+		$sql .= " ORDER BY RAND() LIMIT ".$limit;
 		
 		// Return Used vehicles
 		$results = $this->mdv_db->query( $sql );
@@ -195,7 +195,7 @@ class Plugin_inventory_fetcher extends Plugin
 					$sql .= " AND `IOL_IMAGE` = '0'";
 			
 			// Finish query
-			$sql .= " ORDER BY `VEH_ID` RAND() LIMIT ".( $limit - $curr_count );
+			$sql .= " ORDER BY RAND() LIMIT ".( $limit - $curr_count );
 			
 			// Return Used vehicles
 			$results = $this->mdv_db->query( $sql );
