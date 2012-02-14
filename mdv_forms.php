@@ -641,16 +641,20 @@ class Plugin_mdv_forms extends Plugin
 		$form_suffix = $this->attribute( 'form_suffix', '_frm_1' );
 		$form_dealer_options = $this->_parsePyroVar( 'mdv_form_options', true );
 		$required_opt_fields = $this->attribute( 'req_opt_fields', false );
+		$hide_required_fields = $this->attribute( 'hide_req_fields', false );
 		
 		// Parse params (if neccessary)
-		if( $required_opt_fields != false )
-			$required_opt_fields = explode( ",", $required_opt_fields );
+		$required_opt_fields = ( $required_opt_fields != false ) ? explode( ",", $required_opt_fields ) : false;
+		$hide_required_fields = ( $hide_required_fields != false ) ? explode( ",", $hide_required_fields ) : false;
 		
 		// Custom Inernal Vars
 		$opt_count = count( $form_dealer_options );
 		
 		// Set flags for possible optional requirements
-		$is_email_req = ( is_array( $required_opt_fields ) && in_array( 'email', $required_opt_fields ) ) ? true : false;
+		$is_email_req = ( is_array( $required_opt_fields ) && in_array( 'email', $hide_required_fields ) ) ? true : false;
+		
+		// Set flags for possible hidden requirements
+		$is_vin_hidden = ( is_array( $hide_required_fields ) && in_array( 'vin', $hide_required_fields ) ) ? true : false;
 		
 		// Form HTML Output
 		$output =
@@ -732,12 +736,23 @@ class Plugin_mdv_forms extends Plugin
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<label>N&uacute;mero de Chassis:&nbsp; <span>*</span></label>
+				<td'.( ( $is_vin_hidden ) ? ' colspan="2"' : '' ).'>';
+		
+		// Hide vin
+		if( $is_vin_hidden ):
+			$output .=		
+		'			<input type="hidden" class="" id="lms_vin'.$form_suffix.'" name="vin" value="mdvcms_opt_hide" />';
+		else:
+			$output .=		
+		'			<label>N&uacute;mero de Chassis:&nbsp; <span>*</span></label>
 					<input type="text" class="" id="lms_vin'.$form_suffix.'" name="vin" value="" />
 				</td>
-				<td>
-					<label>Condici&oacute;n:&nbsp; <span>*</span></label>
+				<td>';
+		endif;
+			
+		// Continue
+		$output .=		
+		'			<label>Condici&oacute;n:&nbsp; <span>*</span></label>
 					<select class="" id="lms_condition'.$form_suffix.'" name="condition">
 						<option value="">Seleccionar</option>
 						<option value="Excelente">Excelente</option>
