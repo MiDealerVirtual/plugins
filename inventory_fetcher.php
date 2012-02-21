@@ -32,6 +32,7 @@ class Plugin_inventory_fetcher extends Plugin
 		
 		// Extend CMS vars
 		$this->mod_cms_vars['skip_stock_vehicles'] = parseStr( '{pyro:variables:skip_stock_vehicles}' );
+		$this->mod_cms_vars['filtered_inventory_allowed'] = parseStr( '{pyro:variables:filtered_inventory_allowed}' );
 	}
 	
 	/**
@@ -163,6 +164,10 @@ class Plugin_inventory_fetcher extends Plugin
 			// Remove stock vehicles (if enabled)
 			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
 				$sql .= " AND `IOL_IMAGE` = '0'";
+				
+			// Restrict inventory (if enabled)
+			if( $this->mod_cms_vars['filtered_inventory_allowed'] != '' )
+				$sql .= " AND `CONDITION` IN (".$this->mod_cms_vars['filtered_inventory_allowed'].")";
 		
 		// Finish query
 		$sql .= " ORDER BY RAND() LIMIT ".$limit;
