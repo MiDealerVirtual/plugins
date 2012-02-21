@@ -63,14 +63,13 @@ class Plugin_mdv_modules extends Plugin
 		if( $return_html )
 		{
 			$html_to_return = 
-'<!-- busqueda rapida-->
-<div class="box_quicksearch">
+'<div class="box_quicksearch">
      <h2>Búsqueda Rápida</h2>
      <ul>
-     	<form action="{pyro:url:base}inventario" method="get">
+     	<form action="{pyro:url:base}inventario" method="get" id="quick_search">
           <li>
-			<select>
-				<option>Marca</option>';
+			<select name="makes" id="jq_quick_search_make">
+				<option value="">Marca</option>';
 			
 			foreach( $makes as $m )
 				$html_to_return .= '<option value="'.$m['MAKES'].'">'.$m['MAKE'].'</option>';
@@ -78,16 +77,19 @@ class Plugin_mdv_modules extends Plugin
 			$html_to_return .=
 '			</select>
 		</li>
-          <li><select><option>Modelo</option></select></li>
+          <li>
+			<select name="models" id="jq_quick_search_model" disabled="disabled">
+				<option value="">Modelo</option>
+			</select>
+		</li>
           <li>
                <div class="btn_2">
-                    <a href="inventario" title="Búsqueda Rápida"><span>Buscar</span></a>
+                    <a href="inventario" title="Búsqueda Rápida" id="jq_quick_search_submit"><span>Buscar</span></a>
                </div>
           </li>
           </form>
      </ul>
-</div>
-<!-- end busqueda rapida -->';
+</div>';
 			
 			// return html
 			return $html_to_return;
