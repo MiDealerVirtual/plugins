@@ -65,6 +65,7 @@ class Plugin_mdv_modules extends Plugin
 			$html_to_return = 
 '<div class="box_quicksearch">
      <h2>Búsqueda Rápida</h2>
+	<h3>'.$sql.'</h3>
      <ul>
      	<form action="'.parseStr( '{pyro:url:base}' ).'inventario" method="get" id="quick_search">
           <li>
