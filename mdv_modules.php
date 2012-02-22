@@ -66,7 +66,7 @@ class Plugin_mdv_modules extends Plugin
 '<div class="box_quicksearch">
      <h2>Búsqueda Rápida</h2>
      <ul>
-     	<form action="{pyro:url:base}inventario" method="get" id="quick_search">
+     	<form action="'.parseStr( '{pyro:url:base}' ).'inventario" method="get" id="quick_search">
           <li>
 			<select name="makes" id="jq_quick_search_make">
 				<option value="">Marca</option>';
