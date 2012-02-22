@@ -51,6 +51,10 @@ class Plugin_mdv_modules extends Plugin
 			// Restrict inventory (if enabled)
 			if( $this->mod_cms_vars['filtered_inventory_allowed'] != '' )
 				$sql .= " AND `CONDITION` IN (".$this->mod_cms_vars['filtered_inventory_allowed'].")";
+			
+			// Remove stock vehicles (if enabled)
+			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
+					$sql .= " AND `IOL_IMAGE` = '0'";
 		
 		// Finish query
 		$sql .= " ORDER BY `MAKE` ASC";
