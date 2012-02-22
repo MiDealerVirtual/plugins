@@ -72,7 +72,7 @@ class Plugin_mdv_modules extends Plugin
 				<option value="">Marca</option>';
 			
 			foreach( $makes as $m )
-				$html_to_return .= '<option value="'.$m['MAKES'].'">'.$m['MAKE'].'</option>';
+				$html_to_return .= '<option value="'.$m['MAKE'].'">'.$m['MAKE'].'</option>';
 			
 			$html_to_return .=
 '			</select>
