@@ -90,6 +90,7 @@ class Plugin_mdv_modules extends Plugin
                <div class="btn_2">
                     <a href="inventario" title="Búsqueda Rápida" id="jq_quick_search_submit"><span>Buscar</span></a>
                </div>
+			<div id="xf_loader" class="loader jq _hide"></div>
           </li>
           </form>
      </ul>
