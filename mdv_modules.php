@@ -90,7 +90,9 @@ class Plugin_mdv_modules extends Plugin
                <div class="btn_2">
                     <a href="inventario" title="Búsqueda Rápida" id="jq_quick_search_submit"><span>Buscar</span></a>
                </div>
-			<div id="xf_loader" class="loader jq _hide"></div>
+			<div id="jq_quick_search_loader" class="jq _hide">
+				{pyro:theme:image file="quick_search_loader.gif"}
+			</div>
           </li>
           </form>
      </ul>
