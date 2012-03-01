@@ -407,13 +407,14 @@ class Plugin_mdv_forms extends Plugin
 		
 		// Custom Inernal Vars
 		$mdv_ids = explode( ",", $this->_parsePyroVar( 'mdv_ids' ) );
+		$redirect_client_id = $this->_parsePyroVar( 'redirect_client_id' );
 		
 		// Form HTML Output
 		$output =
 		'<form action="lms_post_api/contact" method="post" id="contact'.$form_suffix.'" class="jq_contact_form">
 		<table cellpadding="0" cellspacing="0">
 		<tbody>
-			<input type="hidden" id="lms_client_id'.$form_suffix.'" name="cid" value="'.$mdv_ids[$id_position].'" />
+			<input type="hidden" id="lms_client_id'.$form_suffix.'" name="cid" value="'.( ( $redirect_client_id != '' ) ? $redirect_client_id : $mdv_ids[$id_position] ).'" />
 			<input type="hidden" id="lms_lead_type'.$form_suffix.'" name="lead_type" value="contact" />
 			<tr>
 				<td>
