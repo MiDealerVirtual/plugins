@@ -87,10 +87,10 @@ class Plugin_mdv_modules extends Plugin
 			</select>
 		</li>
           <li>
-               <div class="btn_2">
+               <div class="btn_2 jq_hide">
                     <a href="inventario" title="Búsqueda Rápida" id="jq_quick_search_submit"><span>Buscar</span></a>
                </div>
-			<div id="jq_quick_search_loader" class="jq _hide">
+			<div class="jq_quick_search_loader jq _hide">
 				'.parseStr( '{pyro:theme:image file="quick_search_loader.gif"}' ).'
 			</div>
           </li>
