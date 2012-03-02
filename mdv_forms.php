@@ -255,6 +255,7 @@ class Plugin_mdv_forms extends Plugin
 		// Save Attributes
 		$form_suffix = $this->attribute( 'form_suffix', ''.$form_suffix.'' );
 		$form_dealer_options = $this->_parsePyroVar( 'mdv_form_options', true );
+		$service_locations = $this->attribute( 'service_locations', false );
 		$forced_id = $this->attribute( 'forced_id', NULL );
 		     if( $forced_id != NULL )
 				 {
@@ -293,8 +294,38 @@ class Plugin_mdv_forms extends Plugin
 		'			</select>
 				</td>
 				<td></td>
+			</tr>';
+		
+		// add service locations
+		if( $service_locations != false ):
+			$output .=
+			'<tr>
+				<td colspan="2">
+					<h3>Ubicaciones</h3>
+				</td>
 			</tr>
-			<tr>
+			<tr class="alternate">
+				<td>
+					<label>Seleccione Ubicación:&nbsp; <span>*</span></label>
+					<select class="" id="lms_dealer'.$form_suffix.'" name="location">';
+		
+			// Add options
+			$service_locations = explode( ",", $service_locations );
+			foreach( $service_locations as $l )
+			{
+				$output .= 
+		'				<option value="'.$l.'">'.$l.'</option>';
+			}
+		
+		$output .=
+		'			</select>
+				</td>
+				<td></td>
+			</tr>';
+		endif;
+			
+		$output .=
+		' <tr>
 				<td colspan="2">
 					<h3>Informaci&oacute;n de Contacto</h3>
 				</td>
