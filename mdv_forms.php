@@ -489,6 +489,12 @@ class Plugin_mdv_forms extends Plugin
 		// Save Attributes
 		$form_suffix = $this->attribute( 'form_suffix', '_frm_1' );
 		$form_dealer_options = $this->_parsePyroVar( 'mdv_form_options', true );
+		$forced_id = $this->attribute( 'forced_id', NULL );
+		     if( $forced_id != NULL )
+				 {
+						$forced_id = explode( "|", $forced_id );
+						$form_dealer_options = array( $forced_id[0] => $forced_id[1] );
+				 }
 		
 		// Custom Inernal Vars
 		$opt_count = count( $form_dealer_options );
