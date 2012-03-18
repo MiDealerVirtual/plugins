@@ -172,6 +172,7 @@ class Plugin_inventory_fetcher extends Plugin
 		// Finish query
 		$sql .= " ORDER BY RAND() LIMIT ".$limit;
 		
+		
 		// Return Used vehicles
 		$results = $this->mdv_db->query( $sql );
 		$similar_vehicles = $results->result_array();
@@ -198,6 +199,10 @@ class Plugin_inventory_fetcher extends Plugin
 				// Remove stock vehicles (if enabled)
 				if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
 					$sql .= " AND `IOL_IMAGE` = '0'";
+					
+				// Restrict inventory (if enabled)
+				if( $this->mod_cms_vars['filtered_inventory_allowed'] != '' )
+					$sql .= " AND `CONDITION` IN (".$this->mod_cms_vars['filtered_inventory_allowed'].")";
 			
 			// Finish query
 			$sql .= " ORDER BY RAND() LIMIT ".( $limit - $curr_count );
