@@ -800,7 +800,7 @@ class Plugin_mdv_forms extends Plugin
 		'			<input type="hidden" class="" id="lms_vin'.$form_suffix.'" name="vin" value="mdvcms_opt_hide" />';
 		else:
 			$output .=		
-		'			<label>N&uacute;mero de Chassis:&nbsp; <span>*</span></label>
+		'			<label>N&uacute;mero de Chasis:&nbsp; <span>*</span></label>
 					<input type="text" class="" id="lms_vin'.$form_suffix.'" name="vin" value="" />
 				</td>
 				<td>';
