@@ -39,6 +39,13 @@ class Plugin_mdv_forms extends Plugin
 		$veh_vin = $this->attribute( 'veh_vin' );
 		$veh_price = $this->attribute( 'veh_price' );
 		$vehicle = $this->attribute( 'vehicle' );
+		$required_opt_fields = $this->attribute( 'req_opt_fields', false );
+		
+		// Parse params (if neccessary)
+		$required_opt_fields = ( $required_opt_fields != false ) ? explode( ",", $required_opt_fields ) : false;
+		
+		// Set flags for possible optional requirements
+		$is_email_req = ( is_array( $required_opt_fields ) && in_array( 'email', $required_opt_fields ) ) ? true : false;
 		
 		// Form HTML Output
 		$output =
@@ -67,8 +74,8 @@ class Plugin_mdv_forms extends Plugin
 					<input type="text" class="jq_telephone" id="lms_telephone'.$form_suffix.'" name="telephone" value="" />
 				</td>
 				<td>
-					<label>Correo Electr&oacute;nico:&nbsp;</label>
-					<input type="text" class="" id="lms_email'.$form_suffix.'" name="email" value="" />
+					<label>Correo Electr&oacute;nico:&nbsp;'.( ( $is_email_req ) ? ' <span>*</span>' : '' ).'</label>
+					<input type="text" class="'.( ( $is_email_req ) ? 'jq_opt_req' : '' ).'" id="lms_email'.$form_suffix.'" name="email" value="" />
 				</td>
 			</tr>
 			<tr >
@@ -446,11 +453,17 @@ class Plugin_mdv_forms extends Plugin
 		// Save Attributes
 		$form_suffix = $this->attribute( 'form_suffix', '_frm_1' );
 		$id_position = $this->attribute( 'id_pos', 0 );
-		
+		$required_opt_fields = $this->attribute( 'req_opt_fields', false );
 		
 		// Custom Inernal Vars
 		$mdv_ids = explode( ",", $this->_parsePyroVar( 'mdv_ids' ) );
 		$redirect_client_id = $this->_parsePyroVar( 'redirect_client_id' );
+		
+		// Parse params (if neccessary)
+		$required_opt_fields = ( $required_opt_fields != false ) ? explode( ",", $required_opt_fields ) : false;
+		
+		// Set flags for possible optional requirements
+		$is_email_req = ( is_array( $required_opt_fields ) && in_array( 'email', $required_opt_fields ) ) ? true : false;
 		
 		// Form HTML Output
 		$output =
@@ -475,8 +488,8 @@ class Plugin_mdv_forms extends Plugin
 					<input type="text" class="jq_telephone" id="lms_telephone'.$form_suffix.'" name="telephone" value="" />
 				</td>
 				<td>
-					<label>Correo Electr&oacute;nico:&nbsp;</label>
-					<input type="text" class="" id="lms_email'.$form_suffix.'" name="email" value="" />
+					<label>Correo Electr&oacute;nico:&nbsp;'.( ( $is_email_req ) ? ' <span>*</span>' : '' ).'</label>
+					<input type="text" class="'.( ( $is_email_req ) ? 'jq_opt_req' : '' ).'" id="lms_email'.$form_suffix.'" name="email" value="" />
 				</td>
 			</tr>
 			<tr>
@@ -707,7 +720,7 @@ class Plugin_mdv_forms extends Plugin
 		$opt_count = count( $form_dealer_options );
 		
 		// Set flags for possible optional requirements
-		$is_email_req = ( is_array( $required_opt_fields ) && in_array( 'email', $hide_required_fields ) ) ? true : false;
+		$is_email_req = ( is_array( $required_opt_fields ) && in_array( 'email', $required_opt_fields ) ) ? true : false;
 		
 		// Set flags for possible hidden requirements
 		$is_vin_hidden = ( is_array( $hide_required_fields ) && in_array( 'vin', $hide_required_fields ) ) ? true : false;
