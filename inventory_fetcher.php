@@ -170,8 +170,17 @@ class Plugin_inventory_fetcher extends Plugin
 		$v_model	= $this->attribute( 'model' );
 		$v_type		= $this->attribute( 'type' );
 		
+		// Determine if merging with other used inventory
+		$ids = $this->mod_cms_vars['mdv_ids'];
+		if( $this->mod_cms_vars['merge_used_vehicles']->merge )
+		{
+			$ids = explode( ",", $ids );
+			$ids = array_merge( $ids, $this->mod_cms_vars['merge_used_vehicles']->ids );
+			$ids = implode( ",", $ids );
+		}
+		
 		// Prepare query
-		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$this->mod_cms_vars['mdv_ids'].") AND `VEH_ID` != ".$veh_id." AND `MAKE` LIKE '".$v_make."' AND `MODEL` LIKE '".$v_model."'";
+		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `VEH_ID` != ".$veh_id." AND `MAKE` LIKE '".$v_make."' AND `MODEL` LIKE '".$v_model."'";
 		
 			// Remove stock vehicles (if enabled)
 			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
@@ -206,7 +215,7 @@ class Plugin_inventory_fetcher extends Plugin
 		if( $curr_count < $limit )
 		{
 			// Prepare query
-			$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$this->mod_cms_vars['mdv_ids'].") AND `VEH_ID` != ".$veh_id." AND `TYPE` LIKE '".$v_type."'";
+			$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `VEH_ID` != ".$veh_id." AND `TYPE` LIKE '".$v_type."'";
 			
 				// Remove stock vehicles (if enabled)
 				if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
