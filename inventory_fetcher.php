@@ -33,6 +33,9 @@ class Plugin_inventory_fetcher extends Plugin
 		// Extend CMS vars
 		$this->mod_cms_vars['skip_stock_vehicles'] = parseStr( '{pyro:variables:skip_stock_vehicles}' );
 		$this->mod_cms_vars['filtered_inventory_allowed'] = parseStr( '{pyro:variables:filtered_inventory_allowed}' );
+		$this->mod_cms_vars['merge_used_vehicles'] = parseStr( '{pyro:variables:merge_used_vehicles}' );
+			if( $this->mod_cms_vars['merge_used_vehicles'] != '' )
+				$this->mod_cms_vars['merge_used_vehicles'] = json_decode( $this->mod_cms_vars['merge_used_vehicles'] );
 	}
 	
 	/**
@@ -48,8 +51,17 @@ class Plugin_inventory_fetcher extends Plugin
 		$show_data	= $this->attribute( 'show_data', false );
 		$skip_btn	= $this->attribute( 'skip_btn', false );
 		
+		// Determine if merging with other used inventory
+		$ids = $this->mod_cms_vars['mdv_ids'];
+		if( $this->mod_cms_vars['merge_used_vehicles']->merge )
+		{
+			$ids = explode( ",", $ids );
+			$ids = array_merge( $ids, $this->mod_cms_vars['merge_used_vehicles']->ids );
+			$ids = implode( ",", $ids );
+		}
+		
 		// Prepare query
-		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$this->mod_cms_vars['mdv_ids'].") AND `CONDITION` IN ('used', 'certified')";
+		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `CONDITION` IN ('used', 'certified')";
 		
 			// Remove stock vehicles (if enabled)
 			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
