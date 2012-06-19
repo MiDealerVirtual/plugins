@@ -66,8 +66,9 @@ class Plugin_minifier extends Plugin
 	public function remote_theme_files()
 	{
 		// Fetch attributes
-		$css_files		= $this->attribute( 'css_files', false );
-		$js_files		= $this->attribute( 'js_files', false );
+		$css_files = $this->attribute( 'css_files', false );
+		$js_files	= $this->attribute( 'js_files', false );
+		$alt_dir = $this->attribute( 'alt_dir', false );
 	
 		// Tags to return
 		$tags_to_return = "";	
