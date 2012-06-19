@@ -68,7 +68,8 @@ class Plugin_minifier extends Plugin
 		// Fetch attributes
 		$css_files = $this->attribute( 'css_files', false );
 		$js_files	= $this->attribute( 'js_files', false );
-		$alt_dir = $this->attribute( 'alt_dir', false );
+		$alt_js_dir = $this->attribute( 'alt_js_dir', false );
+		$alt_css_dir = $this->attribute( 'alt_css_dir', false );
 	
 		// Tags to return
 		$tags_to_return = "";	
@@ -76,13 +77,13 @@ class Plugin_minifier extends Plugin
 		// Prepare minified for css
 		if( $css_files != false )
 		{
-			$tags_to_return .= '<link type="text/css" rel="stylesheet" href="'.$this->config->item( 'perm_base_url' )."min/b=mdvcms_library/css&f=".$css_files.'" />';
+			$tags_to_return .= '<link type="text/css" rel="stylesheet" href="'.$this->config->item( 'perm_base_url' )."min/b=mdvcms_library/css".( ( $alt_css_dir != false ) ? "/".$alt_css_dir : "" )."&f=".$css_files.'" />';
 		}
 		
 		// Prepare minified for js
 		if( $js_files != false )
 		{
-			$tags_to_return .= '<script type="text/javascript" src="'.$this->config->item( 'perm_base_url' )."min/b=mdvcms_library/js&f=".$js_files.'"></script>';
+			$tags_to_return .= '<script type="text/javascript" src="'.$this->config->item( 'perm_base_url' )."min/b=mdvcms_library/js".( ( $alt_js_dir != false ) ? "/".$alt_js_dir : "" )."&f=".$js_files.'"></script>';
 		}
 		
 		// Return
