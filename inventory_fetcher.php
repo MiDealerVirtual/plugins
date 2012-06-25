@@ -268,6 +268,9 @@ class Plugin_inventory_fetcher extends Plugin
 			// create seo alt label
 			$v['SEO_VEH_LABEL'] = $v['MAKE']." ".$v['MODEL']." ".( ( $v['TRIM'] != "" ) ? $v['TRIM']." " : "" ).$v['YEAR']." &mdash; ".$this->mod_cms_vars['dealer_name'];
 			
+			// create simple label
+			$v['SIMPLE_VEH_LABEL'] = $v['MAKE']." ".$v['MODEL'];
+			
 			// save extension
 			array_push( $extended_similar_vehicles, $v );
 		}
