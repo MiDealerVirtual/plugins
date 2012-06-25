@@ -265,6 +265,8 @@ class Plugin_inventory_fetcher extends Plugin
 			// create image thumb path
 			$v['IMAGE_W_PATH'] = $this->config->item( 'images_base_url' ).( ( $v['IOL_IMAGE'] == 1 ) ? $this->config->item('iol_vehicle_pictures_thumb_path' ) : $this->config->item( 'vehicle_pictures_thumb_path' ) ).'thumb_'.$v['IMAGE'];
 			
+			$v['IMAGE_W_PATH_MED'] = $this->config->item( 'images_base_url' ).( ( $v['IOL_IMAGE'] == 1 ) ? $this->config->item('iol_vehicle_pictures_med_path' ) : $this->config->item( 'vehicle_pictures_med_path' ) ).'med_'.$v['IMAGE'];
+			
 			// create seo alt label
 			$v['SEO_VEH_LABEL'] = $v['MAKE']." ".$v['MODEL']." ".( ( $v['TRIM'] != "" ) ? $v['TRIM']." " : "" ).$v['YEAR']." &mdash; ".$this->mod_cms_vars['dealer_name'];
 			
