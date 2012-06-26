@@ -64,7 +64,7 @@ class Plugin_mdv_modules extends Plugin
 		$makes = $results->result_array();
 		
 		// Determine what to return
-		if( $return_html )
+		if( $return_html && $return_html != "false" )
 		{
 			$html_to_return = 
 '<div class="box_quicksearch">
