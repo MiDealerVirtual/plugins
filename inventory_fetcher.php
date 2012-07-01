@@ -314,7 +314,7 @@ class Plugin_inventory_fetcher extends Plugin
 		$results = $this->mdv_db->query( $sql );
 		
 		// determine what to return
-		if( $force_false == 'false' || $force_false == false )
+		if( $force_false == 'true' || $force_false == true )
 			return false;
 		else if ( $force_true == 'true' || $force_true == true )
 			return true;
