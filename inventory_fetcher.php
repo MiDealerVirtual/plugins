@@ -288,7 +288,8 @@ class Plugin_inventory_fetcher extends Plugin
 	public function used_inventory_present()
 	{
 		// Fetch Attributes
-		$force_false		= $this->attribute( 'force_false', false );
+		$force_true = $this->attribute( 'force_true', false );
+		$force_false = $this->attribute( 'force_false', false );
 		
 		// Determine if merging with other used inventory
 		$ids = $this->mod_cms_vars['mdv_ids'];
@@ -317,6 +318,8 @@ class Plugin_inventory_fetcher extends Plugin
 			return false;
 		else if( $results->num_rows() <= 0 )
 			return false;
+		else if ( $force_true == 'true' || $force_true == true )
+			return true;
 		else
 			return true;
 	}
