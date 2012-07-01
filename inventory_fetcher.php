@@ -307,7 +307,7 @@ class Plugin_inventory_fetcher extends Plugin
 				$sql .= " AND `IOL_IMAGE` = '0'";
 		
 		// Finish query
-		$sql .= " ORDER BY RAND() LIMIT ".$limit;
+		$sql .= " ORDER BY RAND()";
 		
 		// fetch results
 		$results = $this->mdv_db->query( $sql );
