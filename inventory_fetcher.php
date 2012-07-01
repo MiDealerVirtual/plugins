@@ -279,6 +279,47 @@ class Plugin_inventory_fetcher extends Plugin
 		
 		return $extended_similar_vehicles;
 	}
+	
+	/**
+	 * Determine if there are use cars, or not
+	 *
+	 * @return true or false
+	 */
+	public function used_inventory_present()
+	{
+		// Fetch Attributes
+		$force_false		= $this->attribute( 'force_false', false );
+		
+		// Determine if merging with other used inventory
+		$ids = $this->mod_cms_vars['mdv_ids'];
+		if( $this->mod_cms_vars['merge_used_vehicles']->merge )
+		{
+			$ids = explode( ",", $ids );
+			$ids = array_merge( $ids, $this->mod_cms_vars['merge_used_vehicles']->ids );
+			$ids = implode( ",", $ids );
+		}
+		
+		// Prepare query
+		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `CONDITION` IN ('used', 'certified')";
+		
+			// Remove stock vehicles (if enabled)
+			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
+				$sql .= " AND `IOL_IMAGE` = '0'";
+		
+		// Finish query
+		$sql .= " ORDER BY RAND() LIMIT ".$limit;
+		
+		// fetch results
+		$results = $this->mdv_db->query( $sql );
+		
+		// determine what to return
+		if( $force_false == 'false' || $force_false == false )
+			return false;
+		else if( $results->num_rows() <= 0 )
+			return false;
+		else
+			return true;
+	}
 }
 
 /* End of file session.php */
