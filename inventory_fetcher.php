@@ -316,10 +316,10 @@ class Plugin_inventory_fetcher extends Plugin
 		// determine what to return
 		if( $force_false == 'false' || $force_false == false )
 			return false;
-		else if( $results->num_rows() <= 0 )
-			return false;
 		else if ( $force_true == 'true' || $force_true == true )
 			return true;
+		else if( $results->num_rows() <= 0 )
+			return false;
 		else
 			return true;
 	}
