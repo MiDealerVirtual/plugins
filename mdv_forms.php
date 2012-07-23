@@ -180,6 +180,7 @@ class Plugin_mdv_forms extends Plugin
 			<tr>
 				<td colspan="2">
 					<h3>Informaci&oacute;n de Piezas</h3>
+					<p>Entre más información nos provea mejor será el servicio.</p>
 				</td>
 			</tr>
 			<tr>
@@ -205,9 +206,13 @@ class Plugin_mdv_forms extends Plugin
 				</td>
 			</tr>
 			<tr class="alternate">
-				<td colspan="2">
+				<td>
 					<label>Descripci&oacute;n:</label>
 					<textarea class="med" id="lms_description'.$form_suffix.'" name="description"></textarea>
+				</td>
+				<td>
+					<label>Num. de Serie:&nbsp;</label>
+					<input type="text" class="sml" id="lms_series_num'.$form_suffix.'" name="series_num" value="" />
 				</td>
 			</tr>
 			<tr>
