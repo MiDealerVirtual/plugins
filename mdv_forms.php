@@ -180,7 +180,7 @@ class Plugin_mdv_forms extends Plugin
 			<tr>
 				<td colspan="2">
 					<h3>Informaci&oacute;n de Piezas</h3>
-					<p>Entre más información nos provea mejor será el servicio.</p>
+					<strong>Entre más información nos provea mejor será el servicio.</strong>
 				</td>
 			</tr>
 			<tr>
