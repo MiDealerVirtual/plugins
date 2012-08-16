@@ -38,6 +38,7 @@ class Plugin_special_tags extends Plugin
 		$onclick = $this->attribute( 'onclick', false );
 		$target = $this->attribute( 'target', false );
 		$title = $this->attribute( 'title', false );
+		$class = $this->attribute( 'class', false );
 		
 		// Create script tag
 		if( $href )
@@ -49,6 +50,8 @@ class Plugin_special_tags extends Plugin
 					$url_html .= ' target="'.$target.'"';
 				if( $title )
 					$url_html .= ' title="'.$title.'"';
+				if( $class )
+					$url_html .= ' class="'.$class.'"';
 			$url_html .= '>';
 			return $url_html;
 		}
