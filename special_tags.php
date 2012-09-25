@@ -160,19 +160,31 @@ class Plugin_special_tags extends Plugin
 		return false;
 	}
 	
-	public function literal()
+	public function custom_tag()
 	{
 		// Save Attributes
-		$text = $this->attribute( 'text', false );
+		$tag = $this->attribute( 'tag', false );
+		$class = $this->attribute( 'class', false );
+		$id = $this->attribute( 'id', false );
+		$close = $this->attribute( 'close', false );
 		
-		// Display text
-		if( $text != false )
-		{
-			return $text;
+		// build custom tag
+		$html = "";
+		if ( $tag != false && !$close ) {
+			$html .= "<".$tag;
+			if ( $class != false ) {
+				$html .= " class=\"".$class."\"";
+			}
+			if ( $id != false ) {
+				$html .= " id=\"".$id."\"";
+			}
+			$html .= ">";
+		} else if ( $tag != false ) {
+			$html .= "</".$tag.">";
 		}
 		
 		// Default return
-		return false;
+		return ( $html != "" ) ? $html : false;
 	}
 	
 	public function form()
