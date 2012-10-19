@@ -329,7 +329,7 @@ class Plugin_inventory_fetcher extends Plugin
 	 *
 	 * @return single vehicle
 	 */
-	public function similar()
+	public function single()
 	{
 		// Fetch Attributes
 		$make	= $this->attribute( 'make', false );
