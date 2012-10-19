@@ -323,6 +323,99 @@ class Plugin_inventory_fetcher extends Plugin
 		else
 			return true;
 	}
+	
+	/**
+	 * Single Vehicle Inventory Fetcher
+	 *
+	 * @return single vehicle
+	 */
+	public function similar()
+	{
+		// Fetch Attributes
+		$make	= $this->attribute( 'make', false );
+		$model	= $this->attribute( 'model', false );
+		$year	= $this->attribute( 'year', false );
+		$limit	= 1;
+		
+		// Security check
+		if ( $make == false ) {
+			// we need at least a model
+			return false;	
+		}
+		
+		// Determine if merging with other used inventory
+		$ids = $this->mod_cms_vars['mdv_ids'];
+		if( $this->mod_cms_vars['merge_used_vehicles']->merge )
+		{
+			$ids = explode( ",", $ids );
+			$ids = array_merge( $ids, $this->mod_cms_vars['merge_used_vehicles']->ids );
+			$ids = implode( ",", $ids );
+		}
+		
+		// Prepare query
+		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `MAKE` LIKE '".$make."'";
+		
+			// Specific model
+			if( $model != false )
+				$sql .= " AND `MODEL` LIKE '".$model."'";
+				
+			// Specific year
+			if( $model != false )
+				$sql .= " AND `MODEL` LIKE '".$model."'";
+		
+			// Remove stock vehicles (if enabled)
+			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
+				$sql .= " AND `IOL_IMAGE` = '0'";
+		
+		// Finish query
+		$sql .= " ORDER BY RAND() LIMIT ".$limit;
+		
+		
+		// Return Used vehicles
+		$results = $this->mdv_db->query( $sql );
+		$single_vehicle = $results->result_array();
+			
+		// Check to see if limit has been met
+		$curr_count = count( $single_vehicle );
+		if( $curr_count < $limit )
+		{
+			// Prepare query
+			$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `MAKE` LIKE '".$make."'";
+		
+			// Finish query
+			$sql .= " ORDER BY RAND() LIMIT ".$limit;
+			
+			// Return Used vehicles
+			$results = $this->mdv_db->query( $sql );
+			$single_vehicle = $results->result_array();
+		}
+		
+		// Loop and Add extra field
+		$v = $single_vehicle[0];
+		
+		// create vehicle link
+		$v['VEH_URL'] = $this->mod_cms_vars['base_url']."inventario/".createVehiclePermaLink( $this->mod_cms_vars,
+										  array( 'ci' => $v['CLIENT_ID'],
+												 'mk' => $v['MAKE'],
+												 'md' => $v['MODEL'],
+												 'tr' => $v['TRIM'],
+												 'yr' => $v['YEAR'],
+												 'vn' => substr( $v['VIN'], ( strlen( $v['VIN'] ) - 3 ) )
+										) );
+										
+		// create image thumb path
+		$v['IMAGE_W_PATH'] = $this->config->item( 'images_base_url' ).( ( $v['IOL_IMAGE'] == 1 ) ? $this->config->item('iol_vehicle_pictures_thumb_path' ) : $this->config->item( 'vehicle_pictures_thumb_path' ) ).'thumb_'.$v['IMAGE'];
+		
+		$v['IMAGE_W_PATH_MED'] = $this->config->item( 'images_base_url' ).( ( $v['IOL_IMAGE'] == 1 ) ? $this->config->item('iol_vehicle_pictures_med_path' ) : $this->config->item( 'vehicle_pictures_med_path' ) ).'med_'.$v['IMAGE'];
+		
+		// create seo alt label
+		$v['SEO_VEH_LABEL'] = $v['MAKE']." ".$v['MODEL']." ".( ( $v['TRIM'] != "" ) ? $v['TRIM']." " : "" ).$v['YEAR']." &mdash; ".$this->mod_cms_vars['dealer_name'];
+		
+		// create simple label
+		$v['SIMPLE_VEH_LABEL'] = $v['MAKE']." ".$v['MODEL'];
+		
+		return $v;
+	}
 }
 
 /* End of file session.php */
