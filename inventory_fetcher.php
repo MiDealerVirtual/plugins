@@ -353,15 +353,15 @@ class Plugin_inventory_fetcher extends Plugin
 		}
 		
 		// Prepare query
-		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `MAKE` LIKE '".$make."'";
+		$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `MAKE` LIKE '%".$make."%'";
 		
 			// Specific model
 			if( $model != false )
-				$sql .= " AND `MODEL` LIKE '".$model."'";
+				$sql .= " AND `MODEL` LIKE '%".$model."%'";
 				
 			// Specific year
-			if( $model != false )
-				$sql .= " AND `MODEL` LIKE '".$model."'";
+			if( $year != false )
+				$sql .= " AND `YEAR` = '".$year."'";
 		
 			// Remove stock vehicles (if enabled)
 			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
@@ -380,7 +380,7 @@ class Plugin_inventory_fetcher extends Plugin
 		if( $curr_count < $limit )
 		{
 			// Prepare query
-			$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `MAKE` LIKE '".$make."'";
+			$sql = "SELECT * FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$ids.") AND `MAKE` LIKE '%".$make."%'";
 		
 			// Finish query
 			$sql .= " ORDER BY RAND() LIMIT ".$limit;
