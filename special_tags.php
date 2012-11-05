@@ -375,6 +375,19 @@ class Plugin_special_tags extends Plugin
 		else
 			return false;
 	}
+	
+	public function get_input()
+	{
+		// Save Attributes
+		$id = $this->attribute( 'id', false );
+		
+		// Determine variable exists
+		if( $id != false && array_key_exists( $id, $_GET ) ) {
+			return $_GET[$id];	
+		} else {
+			return false;
+		}
+	}
 }
 
 /* End of file session.php */
