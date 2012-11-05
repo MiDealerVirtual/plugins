@@ -385,7 +385,7 @@ class Plugin_special_tags extends Plugin
 		if( $id != false && array_key_exists( $id, $_GET ) ) {
 			return $_GET[$id];	
 		} else {
-			return false;
+			return "";
 		}
 	}
 }
