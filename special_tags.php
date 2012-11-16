@@ -392,8 +392,8 @@ class Plugin_special_tags extends Plugin
 	public function start_captcha()
 	{
 		session_start();
-		include( "../../../security/php-captcha.php" );
-		echo dirname(__FILE__);
+		include( "../../security/php-captcha.php" );
+		$_SESSION['captcha'] = captcha();
 	}
 	
 	public function get_captcha_img() {
