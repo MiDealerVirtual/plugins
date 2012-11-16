@@ -392,11 +392,9 @@ class Plugin_special_tags extends Plugin
 	public function start_captcha()
 	{
 		session_start();
-		include( "http://cabreraauto.com/security/php-captcha.php" );
-		if( function_exists('captcha') ) {
+		if( include( "http://cabreraauto.com/security/php-captcha.php" ) == "OK" ) {
 			echo "loaded";
-		} else 
-		{
+		} else {
 			echo "not loaded";	
 		}
 		//$_SESSION['captcha'] = captcha();
