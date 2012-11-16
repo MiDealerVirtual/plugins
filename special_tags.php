@@ -393,7 +393,7 @@ class Plugin_special_tags extends Plugin
 	{
 		session_start();
 		include( "../../../security/php-captcha.php" );
-		$_SESSION['captcha'] = captcha() or die ( "Captcha() is invalid" );
+		//$_SESSION['captcha'] = captcha() or die ( "Captcha() is invalid" );
 	}
 	
 	public function get_captcha_img() {
