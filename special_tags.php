@@ -388,6 +388,17 @@ class Plugin_special_tags extends Plugin
 			return "";
 		}
 	}
+	
+	public function start_captcha()
+	{
+		session_start();
+		include( "../../../security/php-captcha.php" );
+		$_SESSION['captcha'] = captcha();
+	}
+	
+	public function get_captcha_img() {
+		return '<img src="' . $_SESSION['captcha']['image_src'] . '" alt="CAPTCHA" />';
+	}
 }
 
 /* End of file session.php */
