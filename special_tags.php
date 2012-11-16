@@ -391,7 +391,7 @@ class Plugin_special_tags extends Plugin
 	
 	public function start_captcha()
 	{
-		session_start();
+		/*session_start();
 		if( include( "../../security/php-captcha.php" ) == "OK" ) {
 			echo "../../ loaded<br />";
 		} else {
@@ -403,7 +403,7 @@ class Plugin_special_tags extends Plugin
 				echo "../../../ not loaded<br />";	
 			}
 		}
-		//$_SESSION['captcha'] = captcha();
+		//$_SESSION['captcha'] = captcha();*/
 	}
 	
 	public function get_captcha_img() {
