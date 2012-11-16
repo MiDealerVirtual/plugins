@@ -393,7 +393,7 @@ class Plugin_special_tags extends Plugin
 	{
 		session_start();
 		include( "../../../security/php-captcha.php" );
-		$_SESSION['captcha'] = captcha();
+		echo dirname(__FILE__);
 	}
 	
 	public function get_captcha_img() {
