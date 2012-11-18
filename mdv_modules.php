@@ -44,13 +44,17 @@ class Plugin_mdv_modules extends Plugin
 	{
 		// Fetch Attributes
 		$return_html		= $this->attribute( 'return_html', true );
+		$manual_condition	= $this->attribute( 'conditions', false );
 		
 		// Prepare query
 		$sql = "SELECT DISTINCT `MAKE` FROM `vehicles_available_to_viewer_final` WHERE `CLIENT_ID` IN (".$this->mod_cms_vars['mdv_ids'].")";
 		
 			// Restrict inventory (if enabled)
-			if( $this->mod_cms_vars['filtered_inventory_allowed'] != '' )
+			if ( $this->mod_cms_vars['filtered_inventory_allowed'] != '' ) {
 				$sql .= " AND `CONDITION` IN (".$this->mod_cms_vars['filtered_inventory_allowed'].")";
+			} else if ( $manual_condition != false ) {
+				$sql .= " AND `CONDITION` IN ('".$manual_condition."')";
+			}
 			
 			// Remove stock vehicles (if enabled)
 			if( $this->mod_cms_vars['skip_stock_vehicles'] == 'yes' )
