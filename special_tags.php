@@ -389,25 +389,45 @@ class Plugin_special_tags extends Plugin
 		}
 	}
 	
-	public function start_captcha()
-	{
-		/*session_start();
-		if( include( "../../security/php-captcha.php" ) == "OK" ) {
-			echo "../../ loaded<br />";
-		} else {
-			echo "../../ not loaded<br />";	
-			
-			if( include( "../../../security/php-captcha.php" ) == "OK" ) {
-				echo "../../../ loaded<br />";
-			} else {
-				echo "../../../ not loaded<br />";	
-			}
-		}
-		//$_SESSION['captcha'] = captcha();*/
+	public function start_session()	{
+		// start php session
+		session_start();
 	}
 	
-	public function get_captcha_img() {
-		return '<img src="' . $_SESSION['captcha']['image_src'] . '" alt="CAPTCHA" />';
+	public function session_data() {
+		// Save Attributes
+		$key = $this->attribute( 'key', false );
+		$value = $this->attribute( 'value', false );
+		
+		// Distinguish between setting and getting
+		if ( $key != false && $value != false ) {
+			// setting
+			$_SESSION[$key] = $value;
+			return true;
+		} else if ( $key != false && in_array( $key, $_SESSION ) ) {
+			// getting
+			return $_SESSION[$key];
+		} else {
+			// key doesn't exist in session array
+			return false;	
+		}
+	}
+	
+	public function random_captcha() {
+		// Save attributes
+		$length = $this->attribute( 'length', 5 );
+		
+		// Default values
+		$charPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		
+		// Get random string
+		$captcha = '';
+		while( strlen( $capcha ) < $length ) {
+			$captcha .= substr( $charPool, rand() % ( strlen( $charPool ) ), 1 );
+		}
+		
+		// Return captcha string
+		return $captcha;
 	}
 }
 
