@@ -391,10 +391,10 @@ class Plugin_special_tags extends Plugin
 	
 	public function start_session()	{
 		// start php session
-		// session_start();
+		session_start();
 	}
 	
-	public function cookie_data() {
+	public function session_data() {
 		// Save Attributes
 		$key = $this->attribute( 'key', false );
 		$value = $this->attribute( 'value', false );
@@ -402,11 +402,11 @@ class Plugin_special_tags extends Plugin
 		// Distinguish between setting and getting
 		if ( $key != false && $value != false ) {
 			// setting
-			setcookie( $key, $value, time()+3600 );
+			$_SESSION[$key] = $value;
 			return true;
-		} else if ( $key != false && in_array( $key, $_COOKIE ) ) {
+		} else if ( $key != false && in_array( $key, $_SESSION ) ) {
 			// getting
-			return $_COOKIE[$key];
+			return $_SESSION[$key];
 		} else {
 			// key doesn't exist in session array
 			return false;	
