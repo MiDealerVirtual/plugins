@@ -403,7 +403,7 @@ class Plugin_special_tags extends Plugin
 		if ( $key != false && $value != false ) {
 			// setting
 			$_SESSION[$key] = $value;
-			return true;
+			return $value;
 		} else if ( $key != false && in_array( $key, $_SESSION ) ) {
 			// getting
 			return $_SESSION[$key];
