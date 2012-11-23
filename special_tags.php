@@ -419,11 +419,10 @@ class Plugin_special_tags extends Plugin
 		
 		// Default values
 		$charPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-		return $charPool;
 		
 		// Get random string
 		$captcha = '';
-		while( strlen( $capcha ) < $length ) {
+		while( strlen( $captcha ) < $length ) {
 			$captcha .= substr( $charPool, rand() % ( strlen( $charPool ) ), 1 );
 		}
 		
