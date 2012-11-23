@@ -414,11 +414,12 @@ class Plugin_special_tags extends Plugin
 	}
 	
 	public function random_captcha() {
-		/*// Save attributes
+		// Save attributes
 		$length = $this->attribute( 'length', 5 );
 		
 		// Default values
 		$charPool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		return $charPool;
 		
 		// Get random string
 		$captcha = '';
@@ -427,8 +428,7 @@ class Plugin_special_tags extends Plugin
 		}
 		
 		// Return captcha string
-		return $captcha;*/
-		return "Just testing";
+		return $captcha;
 	}
 }
 
