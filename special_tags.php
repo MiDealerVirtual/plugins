@@ -414,7 +414,7 @@ class Plugin_special_tags extends Plugin
 	}
 	
 	public function random_captcha() {
-		// Save attributes
+		/*// Save attributes
 		$length = $this->attribute( 'length', 5 );
 		
 		// Default values
@@ -427,7 +427,8 @@ class Plugin_special_tags extends Plugin
 		}
 		
 		// Return captcha string
-		return $captcha;
+		return $captcha;*/
+		return "Just testing";
 	}
 }
 
