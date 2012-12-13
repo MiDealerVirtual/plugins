@@ -46,13 +46,13 @@ class Plugin_minifier extends Plugin
 		// Prepare minified for css
 		if( $css_files != false )
 		{
-			$tags_to_return .= '<link type="text/css" rel="stylesheet" href="'.$this->base_url."min/b=addons/default/themes/".$this->curr_theme."/css&f=".$css_files.'" />';
+			$tags_to_return .= '<link type="text/css" rel="stylesheet" href="'.$this->base_url."min/?b=addons/default/themes/".$this->curr_theme."/css&f=".$css_files.'" />';
 		}
 		
 		// Prepare minified for js
 		if( $js_files != false )
 		{
-			$tags_to_return .= '<script type="text/javascript" src="'.$this->base_url."min/b=addons/default/themes/".$this->curr_theme."/js&f=".$js_files.'"></script>';
+			$tags_to_return .= '<script type="text/javascript" src="'.$this->base_url."min/?b=addons/default/themes/".$this->curr_theme."/js&f=".$js_files.'"></script>';
 		}
 		
 		// Return
@@ -77,13 +77,13 @@ class Plugin_minifier extends Plugin
 		// Prepare minified for css
 		if( $css_files != false )
 		{
-			$tags_to_return .= '<link type="text/css" rel="stylesheet" href="'.$this->config->item( 'perm_base_url' )."min/b=mdvcms_library/css".( ( $alt_css_dir != false ) ? "/".$alt_css_dir : "" )."&f=".$css_files.'" />';
+			$tags_to_return .= '<link type="text/css" rel="stylesheet" href="'.$this->config->item( 'perm_base_url' )."min/?b=mdvcms_library/css".( ( $alt_css_dir != false ) ? "/".$alt_css_dir : "" )."&f=".$css_files.'" />';
 		}
 		
 		// Prepare minified for js
 		if( $js_files != false )
 		{
-			$tags_to_return .= '<script type="text/javascript" src="'.$this->config->item( 'perm_base_url' )."min/b=mdvcms_library/js".( ( $alt_js_dir != false ) ? "/".$alt_js_dir : "" )."&f=".$js_files.'"></script>';
+			$tags_to_return .= '<script type="text/javascript" src="'.$this->config->item( 'perm_base_url' )."min/?b=mdvcms_library/js".( ( $alt_js_dir != false ) ? "/".$alt_js_dir : "" )."&f=".$js_files.'"></script>';
 		}
 		
 		// Return
